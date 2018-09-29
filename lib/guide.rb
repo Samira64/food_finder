@@ -7,6 +7,7 @@ class Guide
             @@actions
         end
     end
+
     def initialize(path=nil)
         Restaurant.filepath = path
         if Restaurant.file_exists?
@@ -29,12 +30,11 @@ class Guide
     end
 
     def get_action
-        action = nil
-        until Guide::Config.actions.include?(action)
-          puts "\nActions:" + Guide::Config.actions.join(",") +"\n\n"
-          print ">"
-          user_response = gets.chomp
-          action = user_response.downcase.strip
+        print ">"
+        user_response = gets.chomp
+        action = user_response.downcase.strip
+        if !Guide::Config.actions.include?(action)
+          puts "\nActions:" + Guide::Config.actions.join(",") +"\n\n" 
         end
         return action
     end
@@ -56,16 +56,8 @@ class Guide
 
     def add
         puts "\nAdd a restaurant\n\n".upcase
-        restaurant = Restaurant.new
-
-        print "Restaurant name: "
-        restaurant.name = gets.chomp.strip
-
-        print "Cuisine type: "
-        restaurant.cuisine = gets.chomp.strip
-
-        print "Average price: "
-        restaurant.price = gets.chomp.strip
+        
+        restaurant = Restaurant.build_using_questions
 
         if restaurant.save
             puts "\nRestaurant Added\n\n"
