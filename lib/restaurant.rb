@@ -1,4 +1,6 @@
+require 'support/number_helper'
 class Restaurant
+    include NumberHelper
 
     @@filepath = nil
     attr_accessor :name, :cuisine, :price
@@ -40,12 +42,6 @@ class Restaurant
         return restaurants
     end
 
-    def import_line(line)
-        line_array = line.split("\t")
-        @name, @cuisine, @price = line_array
-        return self
-    end
-
     def self.build_using_questions
         args = {}
         print "Restaurant name: "
@@ -72,6 +68,16 @@ class Restaurant
             file.puts "#{[@name, @cuisine, @price].join("\t")}\n"
         end
         return true
+    end
+
+    def import_line(line)
+        line_array = line.split("\t")
+        @name, @cuisine, @price = line_array
+        return self
+    end
+
+    def formatted_price         
+        number_to_currency(@price)
     end
 
 end
