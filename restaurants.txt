@@ -4,3 +4,4 @@ Nandoe's	Portugese	30 RM
 Cafe de Star	bolognese	40 RM
 Cafe Bucks	Persian	30 RM
 Cafe teria	belgian	20
+cafe Rouge	Mexican	25
